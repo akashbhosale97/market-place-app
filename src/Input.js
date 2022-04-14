@@ -1,13 +1,22 @@
-import React, { useEffect } from "react";
-import { TextInput } from "@contentstack/venus-components";
+import React, { useEffect, useState } from "react";
+import { TextInput, Button } from "@contentstack/venus-components";
 import ContentstackAppSdk from "@contentstack/app-sdk";
 import "@contentstack/venus-components/build/main.css";
+import { useNavigate } from "react-router-dom";
 
 const Input = () => {
+  const [data, setData] = useState("");
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    setData(e.target.value);
+  };
+
   useEffect(() => {
     ContentstackAppSdk.init().then(async (appSdk) => {
       const config = await appSdk.getCurrentLocation();
-      console.log(config);
+      console.log(appSdk);
     });
   }, []);
 
@@ -21,8 +30,13 @@ const Input = () => {
           overflow: "hidden",
         }}
       >
-        <TextInput placeholder="Config Screen" />
+        <TextInput placeholder="Config Screen" onChange={handleChange} />
       </div>
+      <Button
+        onClick={() => navigate("/field-extension", { state: { data: data } })}
+      >
+        Send Data
+      </Button>
     </>
   );
 };

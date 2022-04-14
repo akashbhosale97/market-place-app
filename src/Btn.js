@@ -1,13 +1,9 @@
 import React from "react";
-import { Button } from "@contentstack/venus-components";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const Btn = () => {
-  return (
-    <Link to="/config">
-      <Button>Click Me</Button>
-    </Link>
-  );
+  const location = useLocation();
+  return <h1>{location.state.data}</h1>;
 };
 
 export default Btn;
