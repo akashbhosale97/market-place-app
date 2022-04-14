@@ -8,11 +8,6 @@ const Input = () => {
   const [data, setData] = useState("");
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    e.preventDefault();
-    setData(e.target.value);
-  };
-
   useEffect(() => {
     ContentstackAppSdk.init().then(async (appSdk) => {
       const config = await appSdk.getCurrentLocation();
@@ -30,7 +25,12 @@ const Input = () => {
           marginBottom: "20px",
         }}
       >
-        <TextInput placeholder="Config Screen" onChange={handleChange} />
+        <TextInput
+          placeholder="Config Screen"
+          onChange={(e) => {
+            setData(e.target.value);
+          }}
+        />
       </div>
       <Button
         onClick={() => navigate("/field-extension", { state: { data: data } })}
