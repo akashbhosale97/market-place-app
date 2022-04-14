@@ -24,10 +24,10 @@ const Input = () => {
     <>
       <div
         style={{
-          width: "100%",
           border: "1px solid rgba(0,0,0,0.2)",
           borderRadius: "8px",
           overflow: "hidden",
+          marginBottom: "20px",
         }}
       >
         <TextInput placeholder="Config Screen" onChange={handleChange} />
