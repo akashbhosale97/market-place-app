@@ -1,9 +1,18 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import ContentstackAppSdk from "@contentstack/app-sdk";
 
 const Btn = () => {
-  const location = useLocation();
-  return <h1>{location.state.data}</h1>;
+  const [data, setData] = useState("");
+  useEffect(() => {
+    ContentstackAppSdk.init().then(async (appSdk) => {
+      setData(appSdk.config.context);
+    });
+  }, []);
+  return (
+    <>
+      <h1>{data}</h1>
+    </>
+  );
 };
 
 export default Btn;

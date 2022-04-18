@@ -5,15 +5,19 @@ import "@contentstack/venus-components/build/main.css";
 import { useNavigate } from "react-router-dom";
 
 const Input = () => {
-  const [data, setData] = useState("");
+  const [config, setConfig] = useState("");
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setConfig(e.target.value);
+  };
 
   useEffect(() => {
     ContentstackAppSdk.init().then(async (appSdk) => {
-      const config = await appSdk.getCurrentLocation();
+      setConfig((appSdk.config.context = config));
       console.log(appSdk);
     });
-  }, []);
+  }, [config]);
 
   return (
     <>
@@ -25,18 +29,9 @@ const Input = () => {
           marginBottom: "20px",
         }}
       >
-        <TextInput
-          placeholder="Config Screen"
-          onChange={(e) => {
-            setData(e.target.value);
-          }}
-        />
+        <TextInput placeholder="Config Screen" onChange={handleChange} />
       </div>
-      <Button
-        onClick={() => navigate("/field-extension", { state: { data: data } })}
-      >
-        Send Data
-      </Button>
+      <Button onClick={() => navigate("/field-extension")}>Send Data</Button>
     </>
   );
 };
